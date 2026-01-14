@@ -1,0 +1,199 @@
+/* 1. 基本リセットとコンテナ設定 */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.valo-container {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  background-color: #000;
+  overflow: hidden;
+  /* VALORANT風のフォント。入っていれば適用されます */
+  font-family: 'DIN Next W1G', 'FF Mark W05', 'Segoe UI', Roboto, sans-serif;
+  color: #fff;
+}
+
+/* 2. 3Dキャンバスの設定 */
+.webgl {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  outline: none;
+}
+
+/* 3. UIオーバーレイレイヤー */
+.ui-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  padding: 60px 80px;
+  /* 重要な設定：UI以外は下の3Dを触れるようにする */
+  pointer-events: none;
+}
+
+/* 4. ヘッダーエリア */
+.header {
+  margin-bottom: auto;
+}
+
+.back-btn {
+  font-size: 14px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.6);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  cursor: pointer;
+  pointer-events: auto; /* ボタンはクリック可能に */
+  transition: color 0.3s;
+}
+
+.back-btn:hover {
+  color: #ff4655;
+}
+
+/* 5. メインコンテンツ（武器情報とアクション） */
+.weapon-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+/* --- 左側：武器情報とヴァリアント --- */
+.left-panel {
+  pointer-events: auto;
+}
+
+.skin-tag {
+  display: inline-block;
+  background: #ff4655;
+  color: #fff;
+  padding: 4px 12px;
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 12px;
+}
+
+.weapon-name {
+  font-size: 56px;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: -1px;
+  margin: 0 0 40px 0;
+  /* 少しだけ影をつけて背景から浮かせる */
+  text-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.variant-section p {
+  font-size: 11px;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.5);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 15px;
+}
+
+.variant-btns {
+  display: flex;
+  gap: 15px;
+}
+
+.v-btn {
+  width: 36px;
+  height: 36px;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.2, 1, 0.3, 1);
+}
+
+.v-btn:hover {
+  transform: translateY(-5px);
+  border-color: #fff;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+}
+
+/* ボタン各色 */
+.original { background: linear-gradient(45deg, #222, #ff4655); }
+.sunset { background: linear-gradient(45deg, #1a1510, #ff8800); }
+.ocean { background: linear-gradient(45deg, #0a1020, #00ccff); }
+.forest { background: linear-gradient(45deg, #101a10, #00ff66); }
+
+/* --- 右側：価格と購入ボタン --- */
+.action-buttons {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  pointer-events: auto;
+}
+
+.price-card {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 28px;
+  font-weight: 700;
+}
+
+.vp-icon {
+  width: 24px;
+  height: 24px;
+  background: #ff4655;
+  color: #000;
+  font-size: 16px;
+  font-weight: 900;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 2px;
+  transform: rotate(45deg); /* VALOのアイコンっぽく斜めに */
+}
+
+.vp-icon span {
+  transform: rotate(-45deg);
+}
+
+.buy-button {
+  background: transparent;
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  padding: 18px 50px;
+  font-size: 16px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.3s;
+  overflow: hidden;
+}
+
+.buy-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: #fff;
+  transition: all 0.3s;
+  z-index: -1;
+}
+
+.buy-button:hover {
+  color: #000;
+}
+
+.buy-button:hover::before {
+  left: 0;
+}
